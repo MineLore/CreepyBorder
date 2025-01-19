@@ -1,0 +1,8 @@
+name: CreepyBorder
+version: ${version}
+main: org.minelore.plugin.creepyborder.CreepyBorder
+description: Creepy border plugin
+author:
+  - MineLoreSMP
+  - TheDiVaZo
+api-version: '1.21.1'
