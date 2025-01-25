@@ -19,6 +19,7 @@ public class CreepyBorder extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         super.onEnable();
         LOG.info("CreepyBorder plugin is enabled! Development by TheDiVaZo. For MineLoreSMP");
 

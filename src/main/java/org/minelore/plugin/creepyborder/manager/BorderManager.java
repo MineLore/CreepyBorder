@@ -1,6 +1,12 @@
 package org.minelore.plugin.creepyborder.manager;
 
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitTask;
+import org.minelore.plugin.creepyborder.CreepyBorder;
 import org.minelore.plugin.creepyborder.config.MainConfig;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author TheDiVaZo
@@ -8,4 +14,5 @@ import org.minelore.plugin.creepyborder.config.MainConfig;
  */
 public class BorderManager {
 
+    public static
 }
