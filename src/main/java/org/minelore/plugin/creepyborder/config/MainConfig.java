@@ -3,7 +3,6 @@ package org.minelore.plugin.creepyborder.config;
 import org.bukkit.Sound;
 import org.bukkit.block.Biome;
 import org.bukkit.potion.PotionEffect;
-import org.minelore.plugin.creepyborder.deatheffect.DeathEffect;
 
 import java.util.List;
 
@@ -41,8 +40,6 @@ public interface MainConfig {
 
     interface KillConfig {
         boolean isEnabled();
-
-        DeathEffect getDeathEffect();
 
         int getTimeUntilDeath();
 

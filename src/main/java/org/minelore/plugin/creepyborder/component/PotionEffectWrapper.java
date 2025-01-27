@@ -14,19 +14,19 @@ import java.util.Set;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class EffectWrapper extends AbstractWrapper {
+public class PotionEffectWrapper extends BukkitTaskWrapper {
+
+    private static final String NAME = "PotionEffect";
 
     private static final int PERIOD_TASK_IN_SECOND = 5;
     private static final int DURATION_EFFECT_IN_SECOND = 7;
 
     public record EffectData(PotionEffectType type, int amplifier) {}
 
-    private final Set<EffectData> effectDatas;
     private final List<PotionEffect> potionEffects;
 
-    protected EffectWrapper(CreepyBorder plugin, Set<EffectData> effectDatas) {
-        super(plugin);
-        this.effectDatas = Set.copyOf(effectDatas);
+    public PotionEffectWrapper(CreepyBorder plugin, Set<EffectData> effectDatas) {
+        super(plugin, NAME);
         this.potionEffects = effectDatas.stream().map(this::getPotionEffect).toList();
     }
 

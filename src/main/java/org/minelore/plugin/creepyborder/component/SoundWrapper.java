@@ -14,8 +14,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class SoundWrapper extends AbstractWrapper {
+public class SoundWrapper extends BukkitTaskWrapper {
     private final Random random = ThreadLocalRandom.current();
+    private static final String NAME = "Sound";
+
 
     private final List<Sound> sounds;
     private final int pitch;
@@ -23,7 +25,7 @@ public class SoundWrapper extends AbstractWrapper {
     private final int periodInTick;
 
     public SoundWrapper(CreepyBorder plugin, List<Sound> sounds, int pitch, int volume, int periodInTick) {
-        super(plugin);
+        super(plugin, NAME);
         this.sounds = List.copyOf(sounds);
         this.pitch = pitch;
         this.volume = volume;

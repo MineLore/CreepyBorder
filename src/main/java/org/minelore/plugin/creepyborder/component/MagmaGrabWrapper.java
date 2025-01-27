@@ -12,27 +12,40 @@ import java.util.function.Predicate;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class MagmaGrabWrapper extends AbstractWrapper{
-    private final int liteVectorLength;
-    private final int strongVectorLength;
-    private final Predicate<Player> liteToStrongCondition;
+public class MagmaGrabWrapper extends BukkitTaskWrapper {
+    private static final String NAME = "MagmaGrab";
 
-    protected MagmaGrabWrapper(CreepyBorder plugin, int liteVectorLength, int strongVectorLength, Predicate<Player> liteToStrongCondition) {
-        super(plugin);
-        this.liteVectorLength = liteVectorLength;
-        this.strongVectorLength = strongVectorLength;
-        this.liteToStrongCondition = liteToStrongCondition;
+    private final double vectorLength;
+
+    public MagmaGrabWrapper(CreepyBorder plugin, double vectorLength) {
+        super(plugin, NAME);
+        this.vectorLength = vectorLength;
     }
 
     @Override
     protected BukkitTask runTask() {
         return Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : activePlayer) {
-                if (!player.isSwimming()) return;
-                int vectorLength = liteToStrongCondition.test(player) ? strongVectorLength : liteVectorLength;
-                Vector vector = new Vector(0, vectorLength, 0);
+                if (!player.isSwimming() && player.isInWater()) return;
+                Vector vector = new Vector(0, -vectorLength, 0);
                 player.setVelocity(vector);
             }
         }, 0, 10);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        MagmaGrabWrapper that = (MagmaGrabWrapper) o;
+        return name.equals(that.name) && Double.compare(vectorLength, that.vectorLength) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + Double.hashCode(vectorLength);
+        return result;
     }
 }

@@ -15,22 +15,17 @@ import java.util.*;
 public abstract class AbstractWrapper implements Wrapper {
     private static final int OPTIMAL_CAPACITY = 4;
 
+    protected final String name;
     protected final Set<Player> activePlayer = new HashSet<>(OPTIMAL_CAPACITY);
-    private BukkitTask task;
     protected final CreepyBorder plugin;
-    protected AbstractWrapper(CreepyBorder plugin) {
+    protected AbstractWrapper(CreepyBorder plugin, String name) {
         this.plugin = plugin;
+        this.name = name;
     }
 
     @Override
-    public void start() {
-        if (task != null) stop();
-        task = runTask();
-    }
-
-    @Override
-    public void stop() {
-        task.cancel();
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -43,5 +38,16 @@ public abstract class AbstractWrapper implements Wrapper {
         activePlayer.remove(player);
     }
 
-    protected abstract BukkitTask runTask();
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbstractWrapper that = (AbstractWrapper) o;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
