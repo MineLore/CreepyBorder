@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class SoundWrapper extends BukkitTaskWrapper {
     private final Random random = ThreadLocalRandom.current();
-    private static final String NAME = "Sound";
+    public static final String NAME = "Sound";
 
 
     private final List<Sound> sounds;

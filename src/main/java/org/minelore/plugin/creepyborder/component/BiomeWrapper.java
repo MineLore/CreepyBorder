@@ -4,9 +4,13 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
+
+import java.util.Optional;
 
 import static com.comphenix.protocol.PacketType.Play.Server.MAP_CHUNK;
 
@@ -15,7 +19,7 @@ import static com.comphenix.protocol.PacketType.Play.Server.MAP_CHUNK;
  * created on 26.01.2025
  */
 public class BiomeWrapper extends AbstractWrapper {
-    private static final String NAME = "Biome";
+    public static final String NAME = "Biome";
 
     private final PacketListener packetListener;
     private final ProtocolManager protocolManager;
@@ -25,12 +29,36 @@ public class BiomeWrapper extends AbstractWrapper {
         this.packetListener = new PacketAdapter(plugin, MAP_CHUNK) {
             @Override
             public void onPacketSending(PacketEvent event) {
-                if (activePlayer.contains(event.getPlayer())) {
-                    biomePacketEvent.handleChunkBiomesPacket(event);
+                if (activePlayer.contains(event.getPlayer()) && !event.getPlayer().isDead()) {
+                    biomePacketEvent.replaceChunkPacketToRedWater(event);
                 }
             }
         };
         this.protocolManager = protocolManager;
+    }
+
+    public void updateChunks(Player player) {
+        Location location = player.getLocation();
+        Optional<World> randomWorld = Bukkit.getWorlds().stream().filter(world -> world != player.getWorld()).findFirst();
+
+        randomWorld.ifPresent(world -> player.teleport(world.getSpawnLocation()));
+        player.teleport(location);
+    }
+
+    @Override
+    public void interact(Player player) {
+        if (!activePlayer.contains(player)) {
+            super.interact(player);
+            updateChunks(player);
+        }
+    }
+
+    @Override
+    public void cancel(Player player) {
+        if (activePlayer.contains(player)) {
+            super.cancel(player);
+            updateChunks(player);
+        }
     }
 
     @Override

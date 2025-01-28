@@ -48,4 +48,17 @@ public class ReflectionUtil {
             throw new IllegalArgumentException("Cannot find field with type " + String.valueOf(type));
         }
     }
+
+    public static @NotNull Field getField(@NotNull Class<?> clazz, @NotNull String fieldName) {
+        try {
+            Field field = clazz.getDeclaredField(fieldName);
+            if (!field.isAccessible()) {
+                field.setAccessible(true);
+            }
+
+            return field;
+        } catch (SecurityException | NoSuchFieldException e) {
+            throw new InternalError("Failed to get field " + fieldName + ". This is probably caused by your minecraft server version. Contact a DEV for more help.", e);
+        }
+    }
 }

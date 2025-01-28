@@ -7,10 +7,7 @@ import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
-import org.minelore.plugin.creepyborder.component.AbstractWrapper;
-import org.minelore.plugin.creepyborder.component.BukkitTaskWrapper;
-import org.minelore.plugin.creepyborder.component.Wrapper;
-import org.minelore.plugin.creepyborder.config.MainConfig;
+import org.minelore.plugin.creepyborder.util.DataOfEnableWrapper;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -20,17 +17,16 @@ import java.util.function.Predicate;
  * created on 19.01.2025
  */
 public class BorderManager {
-    public record DataOfEnableWrapper(double distToBorder, Wrapper wrapper) {}
     private final CreepyBorder plugin;
-    private final Set<DataOfEnableWrapper> enableWrappers;
+    private final List<DataOfEnableWrapper> enableWrappers;
     private final String successWorldName;
     private BukkitTask bukkitTask;
     private Predicate<Player> immunityCondition;
 
     private boolean isStarted = false;
 
-    public BorderManager(CreepyBorder plugin, String successWorldName, Set<DataOfEnableWrapper> wrappers, Predicate<Player> immunityCondition) {
-        this.enableWrappers = Set.copyOf(wrappers);
+    public BorderManager(CreepyBorder plugin, String successWorldName, List<DataOfEnableWrapper> wrappers, Predicate<Player> immunityCondition) {
+        this.enableWrappers = List.copyOf(wrappers);
         this.plugin = plugin;
         this.successWorldName = successWorldName;
         this.immunityCondition = immunityCondition;
@@ -41,7 +37,7 @@ public class BorderManager {
         isStarted = true;
         if (enableWrappers.isEmpty()) return;
         for (DataOfEnableWrapper enableWrapper : enableWrappers) {
-            enableWrapper.wrapper.start();
+            enableWrapper.wrapper().start();
         }
         if (bukkitTask != null) bukkitTask.cancel();
         bukkitTask = runTask();
@@ -52,7 +48,7 @@ public class BorderManager {
         isStarted = false;
         if (enableWrappers.isEmpty()) return;
         for (DataOfEnableWrapper enableWrapper : enableWrappers) {
-            enableWrapper.wrapper.stop();
+            enableWrapper.wrapper().stop();
         }
         if (bukkitTask!= null) bukkitTask.cancel();
     }
@@ -79,12 +75,12 @@ public class BorderManager {
                 );
 
                 for (DataOfEnableWrapper enableWrapper : enableWrappers) {
-                    double dungeonDistance = enableWrapper.distToBorder;
+                    double dungeonDistance = enableWrapper.distToBorder();
                     if (distanceToBorderSide < dungeonDistance) {
-                        enableWrapper.wrapper.interact(player);
+                        enableWrapper.wrapper().interact(player);
                     }
                     else {
-                        enableWrapper.wrapper.cancel(player);
+                        enableWrapper.wrapper().cancel(player);
                     }
                 }
             }

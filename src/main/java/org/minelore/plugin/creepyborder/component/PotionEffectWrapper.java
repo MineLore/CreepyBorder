@@ -3,9 +3,9 @@ package org.minelore.plugin.creepyborder.component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
+import org.minelore.plugin.creepyborder.util.PotionEffectData;
 
 import java.util.List;
 import java.util.Set;
@@ -16,18 +16,16 @@ import java.util.Set;
  */
 public class PotionEffectWrapper extends BukkitTaskWrapper {
 
-    private static final String NAME = "PotionEffect";
+    public static final String NAME = "PotionEffect";
 
     private static final int PERIOD_TASK_IN_SECOND = 5;
     private static final int DURATION_EFFECT_IN_SECOND = 7;
 
-    public record EffectData(PotionEffectType type, int amplifier) {}
-
     private final List<PotionEffect> potionEffects;
 
-    public PotionEffectWrapper(CreepyBorder plugin, Set<EffectData> effectDatas) {
+    public PotionEffectWrapper(CreepyBorder plugin, Set<PotionEffectData> potionEffectData) {
         super(plugin, NAME);
-        this.potionEffects = effectDatas.stream().map(this::getPotionEffect).toList();
+        this.potionEffects = potionEffectData.stream().map(this::getPotionEffect).toList();
     }
 
     @Override
@@ -39,8 +37,8 @@ public class PotionEffectWrapper extends BukkitTaskWrapper {
         }, 0, 20L*PERIOD_TASK_IN_SECOND);
     }
 
-    protected PotionEffect getPotionEffect(EffectData effectData) {
-        return new PotionEffect(effectData.type(), 20*DURATION_EFFECT_IN_SECOND, effectData.amplifier());
+    protected PotionEffect getPotionEffect(PotionEffectData potionEffectData) {
+        return new PotionEffect(potionEffectData.type(), 20*DURATION_EFFECT_IN_SECOND, potionEffectData.amplifier());
     }
 
 }

@@ -3,6 +3,7 @@ package org.minelore.plugin.creepyborder.config;
 import org.bukkit.Sound;
 import org.bukkit.block.Biome;
 import org.bukkit.potion.PotionEffect;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.List;
 
@@ -11,38 +12,7 @@ import java.util.List;
  * created on 19.01.2025
  */
 public interface MainConfig {
-
-    interface SoundConfig {
-        boolean isEnabled();
-
-        int getDistFromRealBorder();
-
-        List<Sound> getSounds();
-
-        int getPeriodPlaySoundInSecond();
-    }
-
-    interface BiomeConfig {
-        boolean isEnabled();
-
-        int getDistFromRealBorder();
-
-        Biome getBiome();
-    }
-
-    interface PotionEffectConfig {
-        boolean isEnabled();
-
-        int getDistFromRealBorder();
-
-        PotionEffect getPotionEffect();
-    }
-
-    interface KillConfig {
-        boolean isEnabled();
-
-        int getTimeUntilDeath();
-
-    }
+    String getImmunityPermission();
+    List<WrapperConfig> getWrapperConfigs();
 
 }

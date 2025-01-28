@@ -1,6 +1,7 @@
 package org.minelore.plugin.creepyborder.component;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -13,7 +14,7 @@ import java.util.function.Predicate;
  * created on 26.01.2025
  */
 public class MagmaGrabWrapper extends BukkitTaskWrapper {
-    private static final String NAME = "MagmaGrab";
+    public static final String NAME = "MagmaGrab";
 
     private final double vectorLength;
 
@@ -26,11 +27,11 @@ public class MagmaGrabWrapper extends BukkitTaskWrapper {
     protected BukkitTask runTask() {
         return Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : activePlayer) {
-                if (!player.isSwimming() && player.isInWater()) return;
+                if (player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR) || !player.isSwimming() && !player.isInWater() && !player.isUnderWater()) return;
                 Vector vector = new Vector(0, -vectorLength, 0);
                 player.setVelocity(vector);
             }
-        }, 0, 10);
+        }, 0, 5);
     }
 
     @Override

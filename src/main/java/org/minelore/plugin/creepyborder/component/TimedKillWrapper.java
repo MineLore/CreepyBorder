@@ -9,11 +9,13 @@ import org.minelore.plugin.creepyborder.CreepyBorder;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class TimedKill extends BukkitTaskWrapper {
+public class TimedKillWrapper extends BukkitTaskWrapper {
+    public static final String NAME = "TimedKill";
+
     private final int tickToKill;
 
-    public TimedKill(CreepyBorder plugin, int tickToKill) {
-        super(plugin, "TimedKill");
+    public TimedKillWrapper(CreepyBorder plugin, int tickToKill) {
+        super(plugin, NAME);
         this.tickToKill = tickToKill;
     }
 
