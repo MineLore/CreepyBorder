@@ -2,19 +2,14 @@ package org.minelore.plugin.creepyborder.config.spongepowered.serializer;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.minelore.plugin.creepyborder.config.WrapperConfig;
-import org.minelore.plugin.creepyborder.util.NameClassContainer;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.objectmapping.ObjectMapper;
-import org.spongepowered.configurate.serialize.CoercionFailedException;
 import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.configurate.serialize.TypeSerializer;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
  * @author TheDiVaZo
@@ -24,7 +19,6 @@ public class WrapperConfigSerializer implements TypeSerializer<WrapperConfig> {
     private static final String FIELD_NAME = "name";
 
     private final Map<String, Class<? extends WrapperConfig>> nameClassContainer = new HashMap<>();
-    private final Map<String, ObjectMapper<WrapperConfig>> objectMapperMap = new HashMap<>();
 
     public WrapperConfigSerializer(Map<String, Class<? extends WrapperConfig>> nameConfigs) {
         for (Map.Entry<String, Class<? extends WrapperConfig>> stringClassEntry : nameConfigs.entrySet()) {
@@ -38,7 +32,6 @@ public class WrapperConfigSerializer implements TypeSerializer<WrapperConfig> {
 
     public <T extends WrapperConfig> void addWrapperConfig(Class<T> clazz, String name) throws SerializationException {
         nameClassContainer.put(name, clazz);
-        objectMapperMap.put(name, (ObjectMapper<WrapperConfig>) ObjectMapper.factory().get(clazz));
     }
 
     @Override
@@ -51,7 +44,7 @@ public class WrapperConfigSerializer implements TypeSerializer<WrapperConfig> {
         if (clazz == null) {
             throw new SerializationException("Could not deserialize wrapped config because class for name '" + name + "' is not found in registered wrapped configs");
         }
-        return objectMapperMap.get(name).load(node);
+        return ObjectMapper.factory().get(clazz).load(node);
     }
 
     @Override
@@ -67,6 +60,13 @@ public class WrapperConfigSerializer implements TypeSerializer<WrapperConfig> {
             throw new SerializationException("Could not serialize wrapped config because class of obj does not match the registered class for name '" + obj.getName() + "'");
         }
         ObjectMapper<WrapperConfig> objectMapper = (ObjectMapper<WrapperConfig>) ObjectMapper.factory().get(clazz);
-        objectMapper.save(obj, node);
+
+        // set name field to first positions in config
+        ConfigurationNode copiedNode = node.copy();
+        objectMapper.save(obj, copiedNode);
+        ConfigurationNode nameNode = copiedNode.node(FIELD_NAME).copy();
+        copiedNode.removeChild(nameNode);
+        node.node(FIELD_NAME).from(nameNode);
+        node.mergeFrom(copiedNode);
     }
 }

@@ -2,7 +2,10 @@ package org.minelore.plugin.creepyborder;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.paper.PaperCommandManager;
 import org.minelore.plugin.creepyborder.component.*;
 import org.minelore.plugin.creepyborder.config.*;
 import org.minelore.plugin.creepyborder.config.spongepowered.*;
@@ -28,6 +31,7 @@ public class CreepyBorder extends JavaPlugin {
     private final Logger LOG = getLogger();
     private ProtocolManager protocolManager;
     private MainConfig mainConfig;
+    private PaperCommandManager<CommandSourceStack> commandManager;
     private WrapperFactory wrapperFactory;
     private BorderManager borderManager;
 
@@ -46,6 +50,13 @@ public class CreepyBorder extends JavaPlugin {
         loadConfig();
         loadBorderManager();
         borderManager.start();
+    }
+
+    public void loadCommandManager() {
+        commandManager = PaperCommandManager.builder()
+                .executionCoordinator(ExecutionCoordinator.<CommandSourceStack>builder().commonPoolExecutor().build())
+                .buildOnEnable(this);
+
     }
 
     public void loadWrapperFactory() {
@@ -110,6 +121,6 @@ public class CreepyBorder extends JavaPlugin {
             else {
                 LOG.warning("Can't create wrapper for config: " + wrapperConfig);
             }
-        }).toList(), player -> false);
+        }).toList(), player -> player.hasPermission(mainConfig.getImmunityPermission()));
     }
 }
