@@ -14,6 +14,7 @@ import org.minelore.plugin.creepyborder.nms.BiomeRedWaterListener_1_21_R1;
 import org.minelore.plugin.creepyborder.util.DataOfEnableWrapper;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 import java.util.Map;
@@ -83,6 +84,7 @@ public class CreepyBorder extends JavaPlugin {
                                 .register(WrapperConfig.class, wrapperConfigSerializer)
                         )
                 )
+                .nodeStyle(NodeStyle.BLOCK)
                 .path(getDataFolder().toPath().resolve("config.yml"))
                 .build();
         loader.createNode();
