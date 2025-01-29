@@ -12,6 +12,7 @@ import java.util.List;
  */
 @ConfigSerializable
 public class MainConfigImpl implements MainConfig {
+    private String reloadPermission = "creepyborder.reload";
     private String immunityPermission = "creepyborder.immunity";
     private List<WrapperConfig> wrapperConfigs = List.of(
             new WSoundConfigImpl(100),
@@ -26,6 +27,9 @@ public class MainConfigImpl implements MainConfig {
     public String getImmunityPermission() {
         return immunityPermission;
     }
+
+    @Override
+    public String getReloadPermission() { return reloadPermission; }
 
     @Override
     public List<WrapperConfig> getWrapperConfigs() {

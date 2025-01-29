@@ -1,5 +1,6 @@
 package org.minelore.plugin.creepyborder.config.spongepowered.serializer;
 
+import com.google.common.base.Strings;
 import io.leangen.geantyref.TypeToken;
 import org.bukkit.Color;
 import org.spongepowered.configurate.serialize.CoercionFailedException;
@@ -58,9 +59,6 @@ public class BukkitColorSerializer extends ScalarSerializer<Color> {
 
     @Override
     protected Object serialize(Color item, Predicate<Class<?>> typeSupported) {
-        if (typeSupported.test(Integer.class)) {
-            return item.asRGB();
-        }
-        else return Integer.toHexString(item.asRGB());
+          return "#" + Strings.padEnd(Integer.toHexString(item.asRGB()), 6, '0');
     }
 }
