@@ -3,6 +3,7 @@ package org.minelore.plugin.creepyborder;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.incendo.cloud.execution.ExecutionCoordinator;
@@ -66,13 +67,14 @@ public class CreepyBorder extends JavaPlugin {
                 .literal("reload", "r")
                 .permission((sender) -> PermissionResult.of(sender.getSender().hasPermission(configManager.getMainConfig().getReloadPermission()), Permission.of(configManager.getMainConfig().getReloadPermission())))
                 .handler(ctx -> {
-                    CommandSender commandSender = ctx.sender().getSender();
-                    if (reload()) {
-                        commandSender.sendMessage(Component.text("Config reloaded!").color(TextColor.color(Color.GREEN.getRGB())));
-                    }
-                    else {
-                        commandSender.sendMessage(Component.text("Config has not been reloaded! Check console!").color(TextColor.color(Color.RED.getRGB())));
-                    }
+                    Bukkit.getScheduler().runTask(this, () -> {
+                        CommandSender commandSender = ctx.sender().getSender();
+                        if (reload()) {
+                            commandSender.sendMessage(Component.text("Конфигурация перезагружена! Для того, чтобы увидеть изменения биома - перезайдите").color(TextColor.color(Color.GREEN.getRGB())));
+                        } else {
+                            commandSender.sendMessage(Component.text("Config has not been reloaded! Check console!").color(TextColor.color(Color.RED.getRGB())));
+                        }
+                    });
                 }));
 
     }

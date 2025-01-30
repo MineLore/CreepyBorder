@@ -18,7 +18,7 @@ public class PotionEffectHandler extends BukkitTaskHandler {
 
     public static final String NAME = "PotionEffect";
 
-    private static final int PERIOD_TASK_IN_SECOND = 5;
+    private static final int PERIOD_TASK_IN_SECOND = 3;
     private static final int DURATION_EFFECT_IN_SECOND = 7;
 
     private final List<PotionEffect> potionEffects;

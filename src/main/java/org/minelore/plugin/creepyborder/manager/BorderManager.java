@@ -10,6 +10,7 @@ import org.minelore.plugin.creepyborder.CreepyBorder;
 import org.minelore.plugin.creepyborder.util.EnableHandlerData;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -21,7 +22,7 @@ public class BorderManager {
     private final List<EnableHandlerData> enableWrappers;
     private final String successWorldName;
     private BukkitTask bukkitTask;
-    private Predicate<Player> immunityCondition;
+    private final Predicate<Player> immunityCondition;
 
     private boolean isStarted = false;
 

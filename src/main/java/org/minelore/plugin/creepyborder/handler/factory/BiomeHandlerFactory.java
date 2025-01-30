@@ -17,6 +17,7 @@ public class BiomeHandlerFactory implements HandlerFactory<BiomeHandler, HBiomeC
     private final BiomeWrapper biomeWrapper;
     private final BiomePacketEvent biomePacketEvent;
     private final ProtocolManager protocolManager;
+    private BiomeHandler biomeHandler;
 
     public BiomeHandlerFactory(CreepyBorder plugin, BiomeWrapper biomeWrapper, BiomePacketEvent biomePacketEvent, ProtocolManager protocolManager) {
         this.plugin = plugin;
@@ -33,6 +34,9 @@ public class BiomeHandlerFactory implements HandlerFactory<BiomeHandler, HBiomeC
                 handlerConfig.getFogColor(),
                 handlerConfig.getWaterFogColor())
         );
-        return new BiomeHandler(plugin, biomePacketEvent, protocolManager);
+        if (biomeHandler == null) {
+            biomeHandler = new BiomeHandler(plugin, biomePacketEvent, protocolManager);
+        }
+        return biomeHandler;
     }
 }

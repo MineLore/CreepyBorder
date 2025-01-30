@@ -48,7 +48,6 @@ public class ConfigManager {
                 .nodeStyle(NodeStyle.BLOCK)
                 .path(pathToConfig)
                 .build();
-        loadConfig();
     }
 
     public boolean loadConfig() {
@@ -60,6 +59,7 @@ public class ConfigManager {
                 node.set(mainConfig);
             }
             loader.save(node);
+            LOG.info("Config loaded");
             return true;
         } catch (ConfigurateException e) {
             LOG.warning("Failed to load configuration! Config has been default");

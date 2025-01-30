@@ -70,5 +70,9 @@ public class BiomeHandler extends AbstractHandler {
     @Override
     public void stop() {
         protocolManager.removePacketListener(packetListener);
+        for (Player player : activePlayer) {
+            updateChunks(player);
+        }
+        activePlayer.clear();
     }
 }

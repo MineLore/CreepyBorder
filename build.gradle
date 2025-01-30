@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'org.minelore.plugin.creepyborder'
-version = '1.0'
+version = '1.1.0'
 
 repositories {
     mavenLocal()
