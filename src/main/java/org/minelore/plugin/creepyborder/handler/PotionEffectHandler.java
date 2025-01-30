@@ -1,4 +1,4 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.handler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import java.util.Set;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class PotionEffectWrapper extends BukkitTaskWrapper {
+public class PotionEffectHandler extends BukkitTaskHandler {
 
     public static final String NAME = "PotionEffect";
 
@@ -23,7 +23,7 @@ public class PotionEffectWrapper extends BukkitTaskWrapper {
 
     private final List<PotionEffect> potionEffects;
 
-    public PotionEffectWrapper(CreepyBorder plugin, Set<PotionEffectData> potionEffectData) {
+    public PotionEffectHandler(CreepyBorder plugin, Set<PotionEffectData> potionEffectData) {
         super(plugin, NAME);
         this.potionEffects = potionEffectData.stream().map(this::getPotionEffect).toList();
     }

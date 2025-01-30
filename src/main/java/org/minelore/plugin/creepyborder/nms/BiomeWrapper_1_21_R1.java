@@ -13,7 +13,7 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import org.bukkit.NamespacedKey;
-import org.minelore.plugin.creepyborder.util.BiomeData;
+import org.minelore.plugin.creepyborder.util.SpecialEffectsData;
 import org.minelore.plugin.creepyborder.util.ReflectionUtil;
 
 import java.lang.reflect.Field;
@@ -24,46 +24,51 @@ import java.util.Locale;
  * @author TheDiVaZo
  * created on 29.01.2025
  */
-public class BiomeWrap_1_21_R1 {
+public class BiomeWrapper_1_21_R1 implements BiomeWrapper {
     private static final Field specialEffectsField = ReflectionUtil.getField(Biome.class, BiomeSpecialEffects.class);
 
-    private final Biome biome;
-    private final NamespacedKey key;
+    private Biome biome;
+    private NamespacedKey key;
 
-    public BiomeWrap_1_21_R1(BiomeData biomeData) {
-        key = new NamespacedKey(("creepyborder").toLowerCase(Locale.ROOT), ("creepy_biome").toLowerCase(Locale.ROOT));
-        biome = new Biome.BiomeBuilder()
-                .specialEffects(new BiomeSpecialEffects.Builder()
-                        .waterColor(biomeData.waterColor().asRGB())
-                        .skyColor(biomeData.skyColor().asRGB())
-                        .fogColor(biomeData.fogColor().asRGB())
-                        .waterFogColor(biomeData.waterFogColor().asRGB())
-                        .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
-                        .build())
-                .temperature(10)
-                .downfall(10)
-                .mobSpawnSettings(MobSpawnSettings.EMPTY)
-                .generationSettings(BiomeGenerationSettings.EMPTY)
-                .build();
-        registerBiome();
+    public BiomeWrapper_1_21_R1() {
     }
 
+    @Override
     public NamespacedKey getNamespacedKey() {
         return key;
     }
 
-    public void replaceBiome(BiomeData biomeData) {
-        BiomeSpecialEffects biomeSpecialEffects = new BiomeSpecialEffects.Builder()
-                .waterColor(biomeData.waterColor().asRGB())
-                .skyColor(biomeData.skyColor().asRGB())
-                .fogColor(biomeData.fogColor().asRGB())
-                .waterFogColor(biomeData.waterFogColor().asRGB())
-                .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
-                .build();
-        ReflectionUtil.setField(specialEffectsField, biome, biomeSpecialEffects);
+    @Override
+    public void replaceBiome(SpecialEffectsData specialEffectsData) {
+        if (biome == null) {
+            key = new NamespacedKey(("creepyborder").toLowerCase(Locale.ROOT), ("creepy_biome").toLowerCase(Locale.ROOT));
+            biome = new Biome.BiomeBuilder()
+                    .specialEffects(buildSpecialEffects(specialEffectsData))
+                    .temperature(10)
+                    .downfall(10)
+                    .mobSpawnSettings(MobSpawnSettings.EMPTY)
+                    .generationSettings(BiomeGenerationSettings.EMPTY)
+                    .build();
+            registerBiome();
+        }
+        else {
+            BiomeSpecialEffects biomeSpecialEffects = buildSpecialEffects(specialEffectsData);
+            ReflectionUtil.setField(specialEffectsField, biome, biomeSpecialEffects);
+        }
     }
 
-    private void registerBiome() {
+    private BiomeSpecialEffects buildSpecialEffects(SpecialEffectsData specialEffectsData) {
+        return new BiomeSpecialEffects.Builder()
+                .waterColor(specialEffectsData.waterColor().asRGB())
+                .skyColor(specialEffectsData.skyColor().asRGB())
+                .fogColor(specialEffectsData.fogColor().asRGB())
+                .waterFogColor(specialEffectsData.waterFogColor().asRGB())
+                .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.DARK_FOREST)
+                .build();
+    }
+
+    @Override
+    public void registerBiome() {
         Registry<Biome> biomes = MinecraftServer.getServer().registryAccess().registry(Registries.BIOME).orElseThrow();
         ResourceKey<Biome> resource = ResourceKey.create(biomes.key(), ResourceLocation.fromNamespaceAndPath(key.getNamespace(), key.getKey()));
         // In order to add biomes, we need to use a writable registry.
@@ -83,11 +88,8 @@ public class BiomeWrap_1_21_R1 {
         ReflectionUtil.setField(freezeField, biomes, true);
     }
 
+    @Override
     public Biome getBiome() {
         return biome;
-    }
-
-    public NamespacedKey getKey() {
-        return key;
     }
 }

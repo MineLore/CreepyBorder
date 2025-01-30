@@ -13,7 +13,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
-import org.minelore.plugin.creepyborder.component.BiomePacketEvent;
 import org.minelore.plugin.creepyborder.util.ReflectionUtil;
 
 import java.lang.reflect.Field;
@@ -22,16 +21,16 @@ import java.lang.reflect.Field;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class BiomeRedWaterListener_1_21_R1 implements BiomePacketEvent {
-    private final BiomeWrap_1_21_R1 biome;
+public class BiomePacketEvent_1_21_R1 implements BiomePacketEvent {
+    private final BiomeWrapper_1_21_R1 biome;
 
     private static final Field chunkBiomesField = ReflectionUtil.getField(ClientboundLevelChunkPacketData.class, byte[].class);
 
-    public BiomeRedWaterListener_1_21_R1(BiomeWrap_1_21_R1 biome) {
+    public BiomePacketEvent_1_21_R1(BiomeWrapper_1_21_R1 biome) {
         this.biome = biome;
     }
 
-    public void replaceChunkPacketToRedWater(PacketEvent event) {
+    public void replaceBiomeInChunkPacket(PacketEvent event) {
         Player player = event.getPlayer();
         Registry<Biome> biomes = MinecraftServer.getServer().registryAccess().registry(Registries.BIOME).orElseThrow();
         ClientboundLevelChunkWithLightPacket packet = (ClientboundLevelChunkWithLightPacket) event.getPacket().getHandle();

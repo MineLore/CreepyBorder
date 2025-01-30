@@ -1,9 +1,7 @@
 package org.minelore.plugin.creepyborder.config.spongepowered;
 
-import org.bukkit.Color;
-import org.minelore.plugin.creepyborder.component.MagmaGrabWrapper;
-import org.minelore.plugin.creepyborder.config.WBiomeConfig;
-import org.minelore.plugin.creepyborder.config.WMagmaGrabConfig;
+import org.minelore.plugin.creepyborder.handler.MagmaGrabHandler;
+import org.minelore.plugin.creepyborder.config.HMagmaGrabConfig;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 /**
@@ -11,19 +9,19 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
  * created on 28.01.2025
  */
 @ConfigSerializable
-public class WMagmaGrabConfigImpl extends WrappedConfigImpl implements WMagmaGrabConfig {
+public class HMagmaGrabConfigImpl extends WrappedConfigImpl implements HMagmaGrabConfig {
     private double vectorLength;
 
-    public WMagmaGrabConfigImpl() {
-        super(MagmaGrabWrapper.NAME);
+    public HMagmaGrabConfigImpl() {
+        super(MagmaGrabHandler.NAME);
     }
 
-    public WMagmaGrabConfigImpl(double vectorLength) {
+    public HMagmaGrabConfigImpl(double vectorLength) {
         this();
         this.vectorLength = vectorLength;
     }
 
-    public WMagmaGrabConfigImpl(double vectorLength, double distToBorder) {
+    public HMagmaGrabConfigImpl(double vectorLength, double distToBorder) {
         this(vectorLength);
         this.distToBorder = distToBorder;
     }

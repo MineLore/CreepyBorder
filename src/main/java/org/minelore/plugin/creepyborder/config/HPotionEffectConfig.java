@@ -8,6 +8,6 @@ import java.util.Set;
  * @author TheDiVaZo
  * created on 28.01.2025
  */
-public interface WPotionEffectConfig extends WrapperConfig {
+public interface HPotionEffectConfig extends HandlerConfig {
     Set<PotionEffectData> getEffectDatas();
 }

@@ -1,4 +1,4 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.handler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -7,18 +7,16 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 import org.minelore.plugin.creepyborder.CreepyBorder;
 
-import java.util.function.Predicate;
-
 /**
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class MagmaGrabWrapper extends BukkitTaskWrapper {
+public class MagmaGrabHandler extends BukkitTaskHandler {
     public static final String NAME = "MagmaGrab";
 
     private final double vectorLength;
 
-    public MagmaGrabWrapper(CreepyBorder plugin, double vectorLength) {
+    public MagmaGrabHandler(CreepyBorder plugin, double vectorLength) {
         super(plugin, NAME);
         this.vectorLength = vectorLength;
     }
@@ -39,7 +37,7 @@ public class MagmaGrabWrapper extends BukkitTaskWrapper {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        MagmaGrabWrapper that = (MagmaGrabWrapper) o;
+        MagmaGrabHandler that = (MagmaGrabHandler) o;
         return name.equals(that.name) && Double.compare(vectorLength, that.vectorLength) == 0;
     }
 

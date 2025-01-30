@@ -1,4 +1,4 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.handler;
 
 import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
@@ -7,11 +7,11 @@ import org.minelore.plugin.creepyborder.CreepyBorder;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public abstract class BukkitTaskWrapper extends AbstractWrapper {
+public abstract class BukkitTaskHandler extends AbstractHandler {
 
     private BukkitTask task;
 
-    protected BukkitTaskWrapper(CreepyBorder plugin, String name) {
+    protected BukkitTaskHandler(CreepyBorder plugin, String name) {
         super(plugin, name);
     }
 

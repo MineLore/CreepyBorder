@@ -1,4 +1,4 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.handler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -9,12 +9,12 @@ import org.minelore.plugin.creepyborder.CreepyBorder;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class TimedKillWrapper extends BukkitTaskWrapper {
+public class TimedKillHandler extends BukkitTaskHandler {
     public static final String NAME = "TimedKill";
 
     private final int tickToKill;
 
-    public TimedKillWrapper(CreepyBorder plugin, int tickToKill) {
+    public TimedKillHandler(CreepyBorder plugin, int tickToKill) {
         super(plugin, NAME);
         this.tickToKill = tickToKill;
     }

@@ -1,4 +1,4 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.handler;
 
 import org.bukkit.Sound;
 import org.bukkit.Bukkit;
@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public class SoundWrapper extends BukkitTaskWrapper {
+public class SoundHandler extends BukkitTaskHandler {
     private final Random random = ThreadLocalRandom.current();
     public static final String NAME = "Sound";
 
@@ -24,7 +24,7 @@ public class SoundWrapper extends BukkitTaskWrapper {
     private final int volume;
     private final int periodInTick;
 
-    public SoundWrapper(CreepyBorder plugin, List<Sound> sounds, int pitch, int volume, int periodInTick) {
+    public SoundHandler(CreepyBorder plugin, List<Sound> sounds, int pitch, int volume, int periodInTick) {
         super(plugin, NAME);
         this.sounds = List.copyOf(sounds);
         this.pitch = pitch;

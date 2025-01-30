@@ -6,7 +6,7 @@ import org.bukkit.Color;
  * @author TheDiVaZo
  * created on 28.01.2025
  */
-public interface WBiomeConfig extends WrapperConfig {
+public interface HBiomeConfig extends HandlerConfig {
     Color getWaterColor();
     Color getSkyColor();
     Color getFogColor();

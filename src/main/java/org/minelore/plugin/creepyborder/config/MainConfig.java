@@ -1,10 +1,5 @@
 package org.minelore.plugin.creepyborder.config;
 
-import org.bukkit.Sound;
-import org.bukkit.block.Biome;
-import org.bukkit.potion.PotionEffect;
-import org.spongepowered.configurate.objectmapping.ConfigSerializable;
-
 import java.util.List;
 
 /**
@@ -14,6 +9,6 @@ import java.util.List;
 public interface MainConfig {
     String getReloadPermission();
     String getImmunityPermission();
-    List<WrapperConfig> getWrapperConfigs();
+    List<HandlerConfig> getWrapperConfigs();
 
 }

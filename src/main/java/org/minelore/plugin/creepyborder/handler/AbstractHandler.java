@@ -1,9 +1,6 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.handler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
 
 import java.util.*;
@@ -12,13 +9,13 @@ import java.util.*;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public abstract class AbstractWrapper implements Wrapper {
+public abstract class AbstractHandler implements Handler {
     private static final int OPTIMAL_CAPACITY = 4;
 
     protected final String name;
     protected final Set<Player> activePlayer = new HashSet<>(OPTIMAL_CAPACITY);
     protected final CreepyBorder plugin;
-    protected AbstractWrapper(CreepyBorder plugin, String name) {
+    protected AbstractHandler(CreepyBorder plugin, String name) {
         this.plugin = plugin;
         this.name = name;
     }
@@ -42,7 +39,7 @@ public abstract class AbstractWrapper implements Wrapper {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        AbstractWrapper that = (AbstractWrapper) o;
+        AbstractHandler that = (AbstractHandler) o;
         return name.equals(that.name);
     }
 

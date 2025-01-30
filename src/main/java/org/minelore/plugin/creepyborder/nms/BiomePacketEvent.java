@@ -1,4 +1,4 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.nms;
 
 import com.comphenix.protocol.events.PacketEvent;
 
@@ -7,5 +7,5 @@ import com.comphenix.protocol.events.PacketEvent;
  * created on 26.01.2025
  */
 public interface BiomePacketEvent {
-    void replaceChunkPacketToRedWater(PacketEvent event);
+    void replaceBiomeInChunkPacket(PacketEvent event);
 }

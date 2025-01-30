@@ -1,7 +1,7 @@
 package org.minelore.plugin.creepyborder.config.spongepowered;
 
-import org.minelore.plugin.creepyborder.component.TimedKillWrapper;
-import org.minelore.plugin.creepyborder.config.WTimedKillConfig;
+import org.minelore.plugin.creepyborder.handler.TimedKillHandler;
+import org.minelore.plugin.creepyborder.config.HTimedKillConfig;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 /**
@@ -9,11 +9,11 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
  * created on 28.01.2025
  */
 @ConfigSerializable
-public class WTimedKillConfigImpl extends WrappedConfigImpl implements WTimedKillConfig {
+public class WTimedKillConfigImpl extends WrappedConfigImpl implements HTimedKillConfig {
     private int tickToKill = 20 * 10; // 20 ticks -> 1 second
 
     public WTimedKillConfigImpl() {
-        super(TimedKillWrapper.NAME);
+        super(TimedKillHandler.NAME);
     }
 
     public WTimedKillConfigImpl(double distToBorder) {

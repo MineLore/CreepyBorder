@@ -1,8 +1,8 @@
 package org.minelore.plugin.creepyborder.config.spongepowered;
 
 import org.bukkit.Color;
-import org.minelore.plugin.creepyborder.component.BiomeWrapper;
-import org.minelore.plugin.creepyborder.config.WBiomeConfig;
+import org.minelore.plugin.creepyborder.handler.BiomeHandler;
+import org.minelore.plugin.creepyborder.config.HBiomeConfig;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 /**
@@ -10,17 +10,17 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
  * created on 28.01.2025
  */
 @ConfigSerializable
-public class WBiomeConfigImpl extends WrappedConfigImpl implements WBiomeConfig {
+public class HBiomeConfigImpl extends WrappedConfigImpl implements HBiomeConfig {
     private Color waterColor = Color.RED;
     private Color skyColor = Color.fromBGR(0x4b0082);
     private Color fogColor = Color.fromBGR(0x8b0000);
     private Color waterFogColor = Color.fromBGR(0x8b0000);
 
-    public WBiomeConfigImpl() {
-        super(BiomeWrapper.NAME);
+    public HBiomeConfigImpl() {
+        super(BiomeHandler.NAME);
     }
 
-    public WBiomeConfigImpl(double distToBorder) {
+    public HBiomeConfigImpl(double distToBorder) {
         this();
         this.distToBorder = distToBorder;
     }

@@ -1,8 +1,8 @@
 package org.minelore.plugin.creepyborder.config.spongepowered;
 
 import org.bukkit.Sound;
-import org.minelore.plugin.creepyborder.component.SoundWrapper;
-import org.minelore.plugin.creepyborder.config.WSoundConfig;
+import org.minelore.plugin.creepyborder.handler.SoundHandler;
+import org.minelore.plugin.creepyborder.config.HSoundConfig;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * created on 28.01.2025
  */
 @ConfigSerializable
-public class WSoundConfigImpl extends WrappedConfigImpl implements WSoundConfig {
+public class HSoundConfigImpl extends WrappedConfigImpl implements HSoundConfig {
     private List<Sound> sounds = List.of(
         Sound.AMBIENT_CAVE
     );
@@ -20,11 +20,11 @@ public class WSoundConfigImpl extends WrappedConfigImpl implements WSoundConfig 
     private int volume = 1;
     private int periodInTick = 20*15;  // 20 tick = 1 second
 
-    public WSoundConfigImpl() {
-        super(SoundWrapper.NAME);
+    public HSoundConfigImpl() {
+        super(SoundHandler.NAME);
     }
 
-    public WSoundConfigImpl(double distToBorder) {
+    public HSoundConfigImpl(double distToBorder) {
         this();
         this.distToBorder = distToBorder;
     }

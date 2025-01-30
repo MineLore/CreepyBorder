@@ -1,7 +1,7 @@
 package org.minelore.plugin.creepyborder.config.spongepowered.serializer;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.minelore.plugin.creepyborder.config.WrapperConfig;
+import org.minelore.plugin.creepyborder.config.HandlerConfig;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.objectmapping.ObjectMapper;
 import org.spongepowered.configurate.serialize.SerializationException;
@@ -15,13 +15,13 @@ import java.util.Map;
  * @author TheDiVaZo
  * created on 28.01.2025
  */
-public class WrapperConfigSerializer implements TypeSerializer<WrapperConfig> {
+public class WrapperConfigSerializer implements TypeSerializer<HandlerConfig> {
     private static final String FIELD_NAME = "name";
 
-    private final Map<String, Class<? extends WrapperConfig>> nameClassContainer = new HashMap<>();
+    private final Map<String, Class<? extends HandlerConfig>> nameClassContainer = new HashMap<>();
 
-    public WrapperConfigSerializer(Map<String, Class<? extends WrapperConfig>> nameConfigs) {
-        for (Map.Entry<String, Class<? extends WrapperConfig>> stringClassEntry : nameConfigs.entrySet()) {
+    public WrapperConfigSerializer(Map<String, Class<? extends HandlerConfig>> nameConfigs) {
+        for (Map.Entry<String, Class<? extends HandlerConfig>> stringClassEntry : nameConfigs.entrySet()) {
             try {
                 addWrapperConfig(stringClassEntry.getValue(), stringClassEntry.getKey());
             } catch (SerializationException e) {
@@ -30,17 +30,17 @@ public class WrapperConfigSerializer implements TypeSerializer<WrapperConfig> {
         }
     }
 
-    public <T extends WrapperConfig> void addWrapperConfig(Class<T> clazz, String name) throws SerializationException {
+    public <T extends HandlerConfig> void addWrapperConfig(Class<T> clazz, String name) throws SerializationException {
         nameClassContainer.put(name, clazz);
     }
 
     @Override
-    public WrapperConfig deserialize(Type type, ConfigurationNode node) throws SerializationException {
+    public HandlerConfig deserialize(Type type, ConfigurationNode node) throws SerializationException {
         String name = node.node(FIELD_NAME).getString();
         if (name == null) {
             new SerializationException("Could not deserialize wrapped config because name is null");
         }
-        Class<? extends WrapperConfig> clazz = nameClassContainer.get(name);
+        Class<? extends HandlerConfig> clazz = nameClassContainer.get(name);
         if (clazz == null) {
             throw new SerializationException("Could not deserialize wrapped config because class for name '" + name + "' is not found in registered wrapped configs");
         }
@@ -48,18 +48,18 @@ public class WrapperConfigSerializer implements TypeSerializer<WrapperConfig> {
     }
 
     @Override
-    public void serialize(Type type, @Nullable WrapperConfig obj, ConfigurationNode node) throws SerializationException {
+    public void serialize(Type type, @Nullable HandlerConfig obj, ConfigurationNode node) throws SerializationException {
         if (obj == null) {
             throw new SerializationException("Could not serialize wrapped config because it is null");
         }
-        Class<? extends WrapperConfig> clazz = nameClassContainer.get(obj.getName());
+        Class<? extends HandlerConfig> clazz = nameClassContainer.get(obj.getName());
         if (clazz == null) {
             throw new SerializationException("Could not serialize wrapped config because class for name '" + obj.getName() + "' is not found in registered wrapped configs");
         }
         if (!clazz.isInstance(obj)) {
             throw new SerializationException("Could not serialize wrapped config because class of obj does not match the registered class for name '" + obj.getName() + "'");
         }
-        ObjectMapper<WrapperConfig> objectMapper = (ObjectMapper<WrapperConfig>) ObjectMapper.factory().get(clazz);
+        ObjectMapper<HandlerConfig> objectMapper = (ObjectMapper<HandlerConfig>) ObjectMapper.factory().get(clazz);
 
         // set name field to first positions in config
         ConfigurationNode copiedNode = node.copy();

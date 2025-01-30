@@ -1,4 +1,4 @@
-package org.minelore.plugin.creepyborder.component;
+package org.minelore.plugin.creepyborder.handler;
 
 import org.bukkit.entity.Player;
 
@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
  * @author TheDiVaZo
  * created on 26.01.2025
  */
-public interface Wrapper {
+public interface Handler {
     String getName();
 
     void start();

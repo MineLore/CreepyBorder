@@ -1,6 +1,6 @@
 package org.minelore.plugin.creepyborder.config.spongepowered;
 
-import org.minelore.plugin.creepyborder.config.WrapperConfig;
+import org.minelore.plugin.creepyborder.config.HandlerConfig;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 /**
@@ -8,7 +8,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
  * created on 28.01.2025
  */
 @ConfigSerializable
-public class WrappedConfigImpl implements WrapperConfig {
+public class WrappedConfigImpl implements HandlerConfig {
     protected final String name;
     protected double distToBorder;
 
