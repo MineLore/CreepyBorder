@@ -42,7 +42,7 @@ jobs:
         run: ./gradlew clean build
       - name: Rename JARs with Build Number
         run: |
-          find build/libs -type f -name "CreepyBorder-*.jar" | while read -r jar; do
+          find target -type f -name "CreepyBorder-*.jar" | while read -r jar; do
             new_name=$(echo "$jar" | sed "s/CreepyBorder-\(.*\)\.jar/CreepyBorder-\1+${{ github.run_number }}.jar/")
             mv "$jar" "$new_name"
           done
