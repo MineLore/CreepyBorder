@@ -9,18 +9,22 @@ plugins {
 }
 
 group = 'org.minelore.plugin.creepyborder'
-version = '1.1.0'
+version = '1.1.1'
 
 repositories {
     mavenLocal()
-    maven { url "https://repo.dmulloy2.net/repository/public/" }
     mavenCentral()
+    maven { url ("https://repo.dmulloy2.net/repository/public/") }
+
 }
 
 dependencies {
     paperweight.paperDevBundle('1.21.1-R0.1-SNAPSHOT')
     compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
     implementation 'org.incendo:cloud-paper:2.0.0-beta.10'
+    implementation 'me.thedivazo.libs.DVZConfig:core:1.0.0-SNAPSHOT'
+    implementation 'me.thedivazo.libs.DVZConfig:lang-yml:1.0.0-SNAPSHOT'
+    implementation 'me.thedivazo.libs.DVZConfig:platform-paper:1.0.0-SNAPSHOT'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
@@ -42,7 +46,21 @@ test {
     useJUnitPlatform()
 }
 
-shadowJar {}
+shadowJar {
+    archiveClassifier.set('')
+}
+
+java {
+    withSourcesJar()
+}
+
+sourcesJar {
+
+}
+
+shadowJar.dependsOn(sourcesJar)
+
+jar.dependsOn(shadowJar)
 
 paperPluginYaml {
     main.set("org.minelore.plugin.creepyborder.CreepyBorder")

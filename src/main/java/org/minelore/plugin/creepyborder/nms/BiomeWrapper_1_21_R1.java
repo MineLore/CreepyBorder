@@ -13,8 +13,8 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import org.bukkit.NamespacedKey;
-import org.minelore.plugin.creepyborder.util.SpecialEffectsData;
 import org.minelore.plugin.creepyborder.util.ReflectionUtil;
+import org.minelore.plugin.creepyborder.util.SpecialEffectsData;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

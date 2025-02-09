@@ -1,9 +1,8 @@
 package org.minelore.plugin.creepyborder.manager;
 
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import org.minelore.plugin.creepyborder.CreepyBorder;
-import org.minelore.plugin.creepyborder.config.*;
+import org.minelore.plugin.creepyborder.config.spongepowered.*;
 import org.minelore.plugin.creepyborder.handler.*;
 import org.minelore.plugin.creepyborder.handler.factory.BiomeHandlerFactory;
 import org.minelore.plugin.creepyborder.handler.factory.HandlerFactory;

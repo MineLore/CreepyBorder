@@ -9,8 +9,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
 import org.minelore.plugin.creepyborder.util.EnableHandlerData;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**

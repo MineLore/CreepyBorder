@@ -1,7 +1,7 @@
 package org.minelore.plugin.creepyborder.handler;
 
-import org.bukkit.Sound;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;

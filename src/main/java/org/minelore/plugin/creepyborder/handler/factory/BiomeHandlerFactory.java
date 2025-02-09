@@ -2,7 +2,7 @@ package org.minelore.plugin.creepyborder.handler.factory;
 
 import com.comphenix.protocol.ProtocolManager;
 import org.minelore.plugin.creepyborder.CreepyBorder;
-import org.minelore.plugin.creepyborder.config.HBiomeConfig;
+import org.minelore.plugin.creepyborder.config.spongepowered.HBiomeConfig;
 import org.minelore.plugin.creepyborder.handler.BiomeHandler;
 import org.minelore.plugin.creepyborder.nms.BiomePacketEvent;
 import org.minelore.plugin.creepyborder.nms.BiomeWrapper;

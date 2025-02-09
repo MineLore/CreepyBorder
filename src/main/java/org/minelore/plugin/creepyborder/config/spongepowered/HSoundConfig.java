@@ -2,7 +2,6 @@ package org.minelore.plugin.creepyborder.config.spongepowered;
 
 import org.bukkit.Sound;
 import org.minelore.plugin.creepyborder.handler.SoundHandler;
-import org.minelore.plugin.creepyborder.config.HSoundConfig;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
  * created on 28.01.2025
  */
 @ConfigSerializable
-public class HSoundConfigImpl extends WrappedConfigImpl implements HSoundConfig {
+public class HSoundConfig extends HandlerConfig {
     private List<Sound> sounds = List.of(
         Sound.AMBIENT_CAVE
     );
@@ -20,31 +19,27 @@ public class HSoundConfigImpl extends WrappedConfigImpl implements HSoundConfig 
     private int volume = 1;
     private int periodInTick = 20*15;  // 20 tick = 1 second
 
-    public HSoundConfigImpl() {
+    public HSoundConfig() {
         super(SoundHandler.NAME);
     }
 
-    public HSoundConfigImpl(double distToBorder) {
+    public HSoundConfig(double distToBorder) {
         this();
         this.distToBorder = distToBorder;
     }
 
-    @Override
     public List<Sound> getSounds() {
         return sounds;
     }
 
-    @Override
     public int getPitch() {
         return pitch;
     }
 
-    @Override
     public int getVolume() {
         return volume;
     }
 
-    @Override
     public int getPeriodInTick() {
         return periodInTick;
     }

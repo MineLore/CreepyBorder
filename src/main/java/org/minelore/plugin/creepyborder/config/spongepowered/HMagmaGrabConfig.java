@@ -1,7 +1,6 @@
 package org.minelore.plugin.creepyborder.config.spongepowered;
 
 import org.minelore.plugin.creepyborder.handler.MagmaGrabHandler;
-import org.minelore.plugin.creepyborder.config.HMagmaGrabConfig;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 /**
@@ -9,24 +8,23 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
  * created on 28.01.2025
  */
 @ConfigSerializable
-public class HMagmaGrabConfigImpl extends WrappedConfigImpl implements HMagmaGrabConfig {
+public class HMagmaGrabConfig extends HandlerConfig {
     private double vectorLength;
 
-    public HMagmaGrabConfigImpl() {
+    public HMagmaGrabConfig() {
         super(MagmaGrabHandler.NAME);
     }
 
-    public HMagmaGrabConfigImpl(double vectorLength) {
+    public HMagmaGrabConfig(double vectorLength) {
         this();
         this.vectorLength = vectorLength;
     }
 
-    public HMagmaGrabConfigImpl(double vectorLength, double distToBorder) {
+    public HMagmaGrabConfig(double vectorLength, double distToBorder) {
         this(vectorLength);
         this.distToBorder = distToBorder;
     }
 
-    @Override
     public double getVectorLength() {
         return vectorLength;
     }

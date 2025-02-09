@@ -3,7 +3,8 @@ package org.minelore.plugin.creepyborder.handler;
 import org.bukkit.entity.Player;
 import org.minelore.plugin.creepyborder.CreepyBorder;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author TheDiVaZo

@@ -1,6 +1,6 @@
 package org.minelore.plugin.creepyborder.handler.factory;
 
-import org.minelore.plugin.creepyborder.config.HandlerConfig;
+import org.minelore.plugin.creepyborder.config.spongepowered.HandlerConfig;
 import org.minelore.plugin.creepyborder.handler.Handler;
 
 import java.util.Map;
