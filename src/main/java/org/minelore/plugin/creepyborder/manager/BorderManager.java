@@ -49,13 +49,14 @@ public class BorderManager {
         for (EnableHandlerData enableWrapper : enableWrappers) {
             enableWrapper.handler().stop();
         }
-        if (bukkitTask!= null) bukkitTask.cancel();
+        if (bukkitTask != null) bukkitTask.cancel();
     }
 
     protected BukkitTask runTask() {
         return Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!player.getWorld().getName().equals(border.getWorldName()) || immunityCondition.test(player)) return;
+                if (!player.getWorld().getName().equals(border.getWorldName()) || immunityCondition.test(player))
+                    return;
 
                 Location location = player.getLocation();
                 double distanceToBorderSide = border.distToBorder(location);
@@ -64,8 +65,7 @@ public class BorderManager {
                     double dungeonDistance = enableWrapper.distToBorder();
                     if (distanceToBorderSide < dungeonDistance) {
                         enableWrapper.handler().interact(player);
-                    }
-                    else {
+                    } else {
                         enableWrapper.handler().cancel(player);
                     }
                 }

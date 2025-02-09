@@ -7,7 +7,7 @@ import org.bukkit.WorldBorder;
  * @author TheDiVaZo
  * created on 09.02.2025
  */
-public class BukkitWorldBorder implements Border{
+public class BukkitWorldBorder implements Border {
     private final String worldName;
     private final double centerX;
     private final double centerZ;

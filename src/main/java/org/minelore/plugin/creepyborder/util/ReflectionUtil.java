@@ -9,7 +9,7 @@ import java.lang.reflect.Modifier;
 /**
  * @author TheDiVaZo
  * created on 27.01.2025
- *
+ * <p>
  * Скоммунизжено из com.cjcrafter:mechanicscore:3.4.1
  */
 public class ReflectionUtil {
@@ -31,7 +31,7 @@ public class ReflectionUtil {
     }
 
     public static Field getField(@NotNull Class<?> target, Class<?> type, int index, boolean skipStatic) {
-        for(Field field : target.getDeclaredFields()) {
+        for (Field field : target.getDeclaredFields()) {
             if (type.isAssignableFrom(field.getType()) && (!skipStatic || !Modifier.isStatic(field.getModifiers())) && index-- <= 0) {
                 if (!field.isAccessible()) {
                     field.setAccessible(true);

@@ -13,9 +13,9 @@ import org.minelore.plugin.creepyborder.nms.BiomeWrapper_1_21_R1;
 import java.util.Map;
 
 /**
-* @author TheDiVaZo
-* created on 30.01.2025
-*/
+ * @author TheDiVaZo
+ * created on 30.01.2025
+ */
 public class HandlerManager {
     private final CreepyBorder creepyBorder;
     private HandlerFactoryContainer handlerFactoryContainer;
