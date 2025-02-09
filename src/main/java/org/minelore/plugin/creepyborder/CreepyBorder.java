@@ -25,7 +25,6 @@ import org.minelore.plugin.creepyborder.handler.*;
 import org.minelore.plugin.creepyborder.manager.BorderManager;
 import org.minelore.plugin.creepyborder.manager.HandlerManager;
 import org.minelore.plugin.creepyborder.util.EnableHandlerData;
-import org.popcraft.chunkyborder.ChunkyBorder;
 import org.spongepowered.configurate.serialize.TypeSerializer;
 import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 

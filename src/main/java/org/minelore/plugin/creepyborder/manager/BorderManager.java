@@ -2,16 +2,11 @@ package org.minelore.plugin.creepyborder.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
 import org.minelore.plugin.creepyborder.border.Border;
 import org.minelore.plugin.creepyborder.util.EnableHandlerData;
-import org.popcraft.chunkyborder.ChunkyBorder;
-import org.popcraft.chunkyborder.util.Particles;
 
 import java.util.List;
 import java.util.function.Predicate;
