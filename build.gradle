@@ -1,3 +1,5 @@
+import xyz.jpenilla.resourcefactory.paper.PaperPluginYaml;
+
 plugins {
     id 'java'
     id 'com.gradleup.shadow' version '9.0.0-beta6'
@@ -12,7 +14,6 @@ version = '1.1.1'
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url ("https://mymavenrepo.com/repo/AzWPavD3lYKKBaGswiVO/") }
     maven { url ("https://repo.dmulloy2.net/repository/public/") }
 
 }
@@ -20,10 +21,11 @@ repositories {
 dependencies {
     paperweight.paperDevBundle('1.21.1-R0.1-SNAPSHOT')
     compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
+    compileOnly fileTree("softdepend/**.jar")
     implementation 'org.incendo:cloud-paper:2.0.0-beta.10'
-    implementation 'me.thedivazo.libs.DVZConfig:core:1.0.0'
-    implementation 'me.thedivazo.libs.DVZConfig:lang-yml:1.0.0'
-    implementation 'me.thedivazo.libs.DVZConfig:platform-paper:1.0.0'
+    implementation 'me.thedivazo.libs.DVZConfig:core:1.0.1'
+    implementation 'me.thedivazo.libs.DVZConfig:lang-yml:1.0.1'
+    implementation 'me.thedivazo.libs.DVZConfig:platform-paper:1.0.1'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
