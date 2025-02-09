@@ -19,11 +19,13 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.paper.PaperCommandManager;
 import org.incendo.cloud.permission.Permission;
 import org.incendo.cloud.permission.PermissionResult;
+import org.minelore.plugin.creepyborder.border.Border;
 import org.minelore.plugin.creepyborder.config.spongepowered.*;
 import org.minelore.plugin.creepyborder.handler.*;
 import org.minelore.plugin.creepyborder.manager.BorderManager;
 import org.minelore.plugin.creepyborder.manager.HandlerManager;
 import org.minelore.plugin.creepyborder.util.EnableHandlerData;
+import org.popcraft.chunkyborder.ChunkyBorder;
 import org.spongepowered.configurate.serialize.TypeSerializer;
 import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 
@@ -120,10 +122,18 @@ public class CreepyBorder extends JavaPlugin {
     }
 
     private void loadBorderManager() {
+        Border border;
+        if (Bukkit.getPluginManager().isPluginEnabled("ChunkyBorder")) {
+            border = Border.createChunkyBorder("world");
+        }
+        else {
+            border = Border.createBukkitBorder("world");
+        }
+
         MainConfig mainConfig = configManager.getConfigContainer().getConfig(MainConfig.class);
         borderManager = new BorderManager(
                 this,
-                "world",
+                border,
                 mainConfig.getWrapperConfigs().stream().<EnableHandlerData>mapMulti((wrapperConfig, consumer) -> {
                     var wrapperOptional = handlerManager.getHandlerFactoryContainer().toWrapper(wrapperConfig);
                     if (wrapperOptional.isPresent()) {

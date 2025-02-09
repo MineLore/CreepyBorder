@@ -5,9 +5,13 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.scheduler.BukkitTask;
 import org.minelore.plugin.creepyborder.CreepyBorder;
+import org.minelore.plugin.creepyborder.border.Border;
 import org.minelore.plugin.creepyborder.util.EnableHandlerData;
+import org.popcraft.chunkyborder.ChunkyBorder;
+import org.popcraft.chunkyborder.util.Particles;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -19,16 +23,16 @@ import java.util.function.Predicate;
 public class BorderManager {
     private final CreepyBorder plugin;
     private final List<EnableHandlerData> enableWrappers;
-    private final String successWorldName;
     private BukkitTask bukkitTask;
     private final Predicate<Player> immunityCondition;
+    private Border border;
 
     private boolean isStarted = false;
 
-    public BorderManager(CreepyBorder plugin, String successWorldName, List<EnableHandlerData> wrappers, Predicate<Player> immunityCondition) {
+    public BorderManager(CreepyBorder plugin, Border border, List<EnableHandlerData> wrappers, Predicate<Player> immunityCondition) {
         this.enableWrappers = List.copyOf(wrappers);
         this.plugin = plugin;
-        this.successWorldName = successWorldName;
+        this.border = border;
         this.immunityCondition = immunityCondition;
     }
 
@@ -54,25 +58,12 @@ public class BorderManager {
     }
 
     protected BukkitTask runTask() {
-        World world = Bukkit.getWorld(successWorldName);
-        WorldBorder border = world.getWorldBorder();
-        Location borderCenter = border.getCenter();
-
-        double centerX = borderCenter.getX();
-        double centerZ = borderCenter.getZ();
-        double borderRadius = border.getSize() / 2;
-
         return Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!player.getWorld().getName().equals(successWorldName) || immunityCondition.test(player)) return;
+                if (!player.getWorld().getName().equals(border.getWorldName()) || immunityCondition.test(player)) return;
 
                 Location location = player.getLocation();
-                double playerX = location.getX();
-                double playerZ = location.getZ();
-                double distanceToBorderSide = Math.min(
-                        borderRadius - Math.abs(playerX - centerX),
-                        borderRadius - Math.abs(playerZ - centerZ)
-                );
+                double distanceToBorderSide = border.distToBorder(location);
 
                 for (EnableHandlerData enableWrapper : enableWrappers) {
                     double dungeonDistance = enableWrapper.distToBorder();

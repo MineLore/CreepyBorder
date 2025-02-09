@@ -21,7 +21,7 @@ repositories {
 dependencies {
     paperweight.paperDevBundle('1.21.1-R0.1-SNAPSHOT')
     compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
-    compileOnly fileTree("softdepend/**.jar")
+    compileOnly fileTree(dir: 'softdepend', include: '*.jar')
     implementation 'org.incendo:cloud-paper:2.0.0-beta.10'
     implementation 'me.thedivazo.libs.DVZConfig:core:1.0.1'
     implementation 'me.thedivazo.libs.DVZConfig:lang-yml:1.0.1'
